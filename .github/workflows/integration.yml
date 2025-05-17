@@ -28,7 +28,7 @@ jobs:
     - name: "Build command"
       run: npm run build
 
-  unit-tests:
+  unit-tests-1:
 
     runs-on: ubuntu-latest
 
