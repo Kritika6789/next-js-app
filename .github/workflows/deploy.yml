@@ -4,9 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     environment:
       name: Production
