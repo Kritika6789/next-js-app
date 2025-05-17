@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+   
     runs-on: ubuntu-latest
 
     strategy:
@@ -28,6 +28,7 @@ jobs:
     - name: "Build command"
       run: npm run build
   linting:
+    needs: build
     runs-on: ubuntu-latest
 
     strategy:
@@ -46,9 +47,9 @@ jobs:
 
     - name: "Build command"
       run: npm run lint
-      
-  unit-tests:
 
+  unit-tests:
+    needs: build
     runs-on: ubuntu-latest
 
     strategy:
