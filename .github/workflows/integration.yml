@@ -27,7 +27,7 @@ jobs:
 
     - name: "Build command"
       run: npm run build
-  linting:
+  lint:
     runs-on: ubuntu-latest
 
     strategy:
