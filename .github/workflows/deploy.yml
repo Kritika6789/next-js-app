@@ -14,6 +14,4 @@ jobs:
       - name: sending message on slack
         if: success()
         run: |
-              curl -X POST -H 'Content-type: application/json' \
-              --data '{"text":"✅ GitHub Action Succeeded for *MyApp*"}' \
-              ${{ env.SLACK_WEBHOOK_URL }}
+             curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
