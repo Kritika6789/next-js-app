@@ -15,4 +15,4 @@ jobs:
       - name: Notify Slack on Success
         if: success()
         run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+             curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
