@@ -73,7 +73,44 @@ jobs:
 
     - name: "Running test cases"
       run: npm run test
-    - name: Notify Slack on Success
-        if: success()
-        run: |
-             curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+    - name: send slack notification
+      uses: slackapi/slack-github-actions@v1.24.0
+      with:
+        payload: |
+          {
+            "text":"Build on *{{ github.repository}}* has *${{job.status}}*.\n '${{github.sha}}' by ${{github.actor}}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{secrets.SLACK_WEBHOOK_URL}}
+  
+
+RunZAPDAST:
+  runs-on: ubuntu-latest
+  steps:
+  - script: |
+      echo "Starting OWASP ZAP scan..."
+      docker pull owasp/zap2docker-stable
+      docker run -t owasp/zap2docker-stable zap-baseline.py \
+        -t http://your-staging-url.com \
+        -r zap-report.html \
+        -x zap-report.xml \
+        -J zap-report.json
+    displayName: 'Run OWASP ZAP Scan'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'zap-report.html'
+      artifactName: 'ZAP HTML Report'
+    displayName: 'Publish ZAP HTML Report'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'zap-report.xml'
+      artifactName: 'ZAP XML Report'
+    displayName: 'Publish ZAP XML Report'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'zap-report.json'
+      artifactName: 'ZAP JSON Report'
+    displayName: 'Publish ZAP JSON Report'
