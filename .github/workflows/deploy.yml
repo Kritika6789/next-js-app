@@ -16,4 +16,4 @@ jobs:
         run: |
               curl -X POST -H 'Content-type: application/json' \
               --data '{"text":"✅ GitHub Action Succeeded for *MyApp*"}' \
-              ${{ secrets.SLACK_WEBHOOK_URL }}
+              ${{ env.SLACK_WEBHOOK_URL }}
