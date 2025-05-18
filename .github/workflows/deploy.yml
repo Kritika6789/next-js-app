@@ -8,10 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: Production
+
     steps:
       - name: Deploy to production
         run: echo "Deploying to production..."
-      - name: sending message on slack
+      - name: Notify Slack on Success
         if: success()
         run: |
-             curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+        curl -X POST -H 'Content-type: application/json' \
+          --data "{
+          \"text\": \"✅ Deployment successful \"
+           }" \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
