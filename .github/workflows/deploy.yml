@@ -14,4 +14,6 @@ jobs:
       - name: sending message on slack
         if: success()
         run: |
-             curl -X POST --data-urlencode "payload={\"channel\": \"#new-channel\", \"username\": \"webhookbot\", \"text\": \"This is posted to #new-channel and comes from a bot named webhookbot.\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/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
+              curl -X POST -H 'Content-type: application/json' \
+              --data '{"text":"✅ GitHub Action Succeeded for *MyApp*"}' \
+              ${{ secrets.SLACK_WEBHOOK_URL }}
